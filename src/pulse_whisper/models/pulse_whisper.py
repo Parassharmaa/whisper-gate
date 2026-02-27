@@ -138,7 +138,15 @@ class PulseWhisperEncoder(nn.Module):
         # Use Whisper decoder directly
         decoder = self.whisper.model.decoder
         if decoder_input_ids is None and labels is not None:
-            decoder_input_ids = self.whisper._shift_right(labels)
+            # Shift labels right: prepend decoder_start_token_id
+            decoder_start_id = self.whisper.config.decoder_start_token_id
+            decoder_input_ids = labels.new_zeros(labels.shape)
+            decoder_input_ids[:, 1:] = labels[:, :-1].clone()
+            decoder_input_ids[:, 0] = decoder_start_id
+            # Replace -100 (padding) with pad_token_id for decoder input
+            decoder_input_ids = decoder_input_ids.masked_fill(
+                decoder_input_ids == -100, self.whisper.config.pad_token_id
+            )
 
         decoder_outputs = decoder(
             input_ids=decoder_input_ids,
