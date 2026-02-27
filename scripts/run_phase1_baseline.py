@@ -53,6 +53,7 @@ def main():
     model_name = f"openai/whisper-{args.whisper_size}"
     logger.info(f"Loading {model_name}...")
     model = WhisperForConditionalGeneration.from_pretrained(model_name).to(device)
+    model.generation_config.max_length = None  # use max_new_tokens instead
     model.eval()
     processor = WhisperProcessor.from_pretrained(model_name)
 

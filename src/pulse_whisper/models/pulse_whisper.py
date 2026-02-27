@@ -46,6 +46,10 @@ class PulseWhisperEncoder(nn.Module):
         self.hidden_size = self.whisper.config.d_model
         self.num_encoder_layers = self.whisper.config.encoder_layers
 
+        # Clear max_length from generation config to avoid conflict with max_new_tokens
+        if hasattr(self.whisper, "generation_config"):
+            self.whisper.generation_config.max_length = None
+
         # Freeze all Whisper parameters
         for param in self.whisper.parameters():
             param.requires_grad = False
