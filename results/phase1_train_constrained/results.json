@@ -1,0 +1,201 @@
+{
+  "experiment": "phase1_train",
+  "config": {
+    "whisper_size": "tiny",
+    "max_epochs": 10,
+    "batch_size": 16,
+    "lr": 0.0001,
+    "gap_augmentation": true
+  },
+  "device": "mps",
+  "training": [
+    {
+      "variant": "C",
+      "training": {
+        "train_loss": [
+          2.745937922813373,
+          2.713935242018886,
+          2.7581458757709525,
+          2.743937388478711,
+          2.73494011330205,
+          2.7188654185673378,
+          2.7259372532700694,
+          2.7189107314168406,
+          2.7391596213399363,
+          2.7370942438114954
+        ],
+        "time_minutes": 34.68373966614406
+      },
+      "trainable_params": 3076
+    },
+    {
+      "variant": "D",
+      "training": {
+        "train_loss": [
+          2.7512446888332263,
+          2.7660010700119275,
+          2.746987409431841,
+          2.707177738903621,
+          2.7037469994422443,
+          2.6890516241169506,
+          2.6934912564368223,
+          2.67894868344568,
+          2.6738463673511697,
+          2.6633284744603674
+        ],
+        "time_minutes": 36.82267078558604
+      },
+      "trainable_params": 594436
+    }
+  ],
+  "evaluations": [
+    {
+      "variant": "C",
+      "gap_evaluation": {
+        "gap_0": {
+          "wer": 0.07639806252752092,
+          "cer": 0.029925603945498622,
+          "num_samples": 200
+        },
+        "gap_5": {
+          "wer": 0.09577278731836196,
+          "cer": 0.04768870684610883,
+          "num_samples": 200
+        },
+        "gap_15": {
+          "wer": 0.1265962131219727,
+          "cer": 0.07878458580623589,
+          "num_samples": 200
+        },
+        "gap_30": {
+          "wer": 0.19110523998238663,
+          "cer": 0.14686951433586892,
+          "num_samples": 200
+        },
+        "multi_gap": {
+          "wer": 0.24856891237340378,
+          "cer": 0.20191423555964222,
+          "num_samples": 200
+        }
+      },
+      "hallucination": {
+        "silence": {
+          "hallucination_rate": 1.0,
+          "avg_output_length": 1.0,
+          "num_samples": 20
+        },
+        "white_noise": {
+          "hallucination_rate": 1.0,
+          "avg_output_length": 1.0,
+          "num_samples": 20
+        }
+      },
+      "pulse_stats": [
+        {
+          "layer": 0,
+          "alpha": 0.05113263428211212,
+          "amp_mean": -0.007905866019427776,
+          "omega_mean": 2.157247304916382,
+          "omega_std": 2.5140349864959717
+        },
+        {
+          "layer": 1,
+          "alpha": 0.05123220384120941,
+          "amp_mean": 0.0037293124478310347,
+          "omega_mean": 2.157196044921875,
+          "omega_std": 2.514124870300293
+        },
+        {
+          "layer": 2,
+          "alpha": 0.051115863025188446,
+          "amp_mean": -0.009208529256284237,
+          "omega_mean": 2.1573967933654785,
+          "omega_std": 2.5140509605407715
+        },
+        {
+          "layer": 3,
+          "alpha": 0.05125267431139946,
+          "amp_mean": -0.01235846895724535,
+          "omega_mean": 2.1573591232299805,
+          "omega_std": 2.5141191482543945
+        }
+      ]
+    },
+    {
+      "variant": "D",
+      "gap_evaluation": {
+        "gap_0": {
+          "wer": 0.07683839718185821,
+          "cer": 0.03005099055420881,
+          "num_samples": 200
+        },
+        "gap_5": {
+          "wer": 0.09709379128137384,
+          "cer": 0.047939480063529216,
+          "num_samples": 200
+        },
+        "gap_15": {
+          "wer": 0.12725671510347863,
+          "cer": 0.07911895009612974,
+          "num_samples": 200
+        },
+        "gap_30": {
+          "wer": 0.19264641127256715,
+          "cer": 0.14703669648081585,
+          "num_samples": 200
+        },
+        "multi_gap": {
+          "wer": 0.24196389255834433,
+          "cer": 0.19342974170358607,
+          "num_samples": 200
+        }
+      },
+      "hallucination": {
+        "silence": {
+          "hallucination_rate": 1.0,
+          "avg_output_length": 1.0,
+          "num_samples": 20
+        },
+        "white_noise": {
+          "hallucination_rate": 1.0,
+          "avg_output_length": 1.0,
+          "num_samples": 20
+        }
+      },
+      "pulse_stats": [
+        {
+          "layer": 0,
+          "alpha": 0.0514611154794693,
+          "amp_mean": 0.0033397518564015627,
+          "omega_mean": 2.157273530960083,
+          "omega_std": 2.5141384601593018
+        },
+        {
+          "layer": 1,
+          "alpha": 0.05156668275594711,
+          "amp_mean": -0.0038884312380105257,
+          "omega_mean": 2.1573779582977295,
+          "omega_std": 2.5139834880828857
+        },
+        {
+          "layer": 2,
+          "alpha": 0.051494624465703964,
+          "amp_mean": -0.0069983950816094875,
+          "omega_mean": 2.157313823699951,
+          "omega_std": 2.5139524936676025
+        },
+        {
+          "layer": 3,
+          "alpha": 0.05149843543767929,
+          "amp_mean": -0.004044830799102783,
+          "omega_mean": 2.1571619510650635,
+          "omega_std": 2.513946771621704
+        }
+      ]
+    }
+  ],
+  "decision": {
+    "go": false,
+    "reason": "Missing multi_gap results"
+  }
+}
