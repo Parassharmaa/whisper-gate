@@ -6,15 +6,9 @@ Core evaluation pipeline for measuring Whisper robustness to silence gaps.
 from __future__ import annotations
 
 import logging
-import warnings
 
 import torch
 from transformers import WhisperProcessor
-
-# Suppress noisy HF generation warnings
-warnings.filterwarnings("ignore", message=".*max_new_tokens.*max_length.*")
-warnings.filterwarnings("ignore", message=".*attention mask.*")
-warnings.filterwarnings("ignore", message=".*forced_decoder_ids.*deprecated.*")
 
 from pulse_whisper.data.gapped_audio import GapLevel, inject_silence_gaps
 from pulse_whisper.eval.metrics import (
@@ -27,6 +21,26 @@ from pulse_whisper.eval.metrics import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _generate(model, input_features: torch.Tensor, language: str = "en") -> torch.Tensor:
+    """Generate token IDs using the appropriate model interface."""
+    gen_kwargs = {"language": language, "task": "transcribe", "max_new_tokens": 128}
+
+    # Unset max_length to avoid conflict with max_new_tokens
+    gen_config = None
+    if hasattr(model, "whisper"):
+        gen_config = model.whisper.generation_config
+    elif hasattr(model, "generation_config"):
+        gen_config = model.generation_config
+
+    if gen_config is not None:
+        gen_config.max_length = None
+
+    if hasattr(model, "generate"):
+        return model.generate(input_features, **gen_kwargs)
+    else:
+        return model.whisper.generate(input_features, **gen_kwargs)
 
 
 @torch.no_grad()
@@ -60,8 +74,6 @@ def evaluate_gapped(
     all_predictions = []
     all_references = []
 
-    forced_decoder_ids = processor.get_decoder_prompt_ids(language=language, task="transcribe")
-
     for batch_idx, batch in enumerate(dataloader):
         if max_batches is not None and batch_idx >= max_batches:
             break
@@ -75,20 +87,7 @@ def evaluate_gapped(
                 input_features, gap_level, seed=batch_idx
             )
 
-        # Generate
-        if hasattr(model, "generate"):
-            generated_ids = model.generate(
-                input_features,
-                forced_decoder_ids=forced_decoder_ids,
-                max_new_tokens=128,
-            )
-        else:
-            generated_ids = model.whisper.generate(
-                input_features,
-                forced_decoder_ids=forced_decoder_ids,
-                max_new_tokens=128,
-            )
-
+        generated_ids = _generate(model, input_features, language)
         predictions = processor.batch_decode(generated_ids, skip_special_tokens=True)
 
         all_predictions.extend(predictions)
@@ -158,14 +157,11 @@ def evaluate_hallucination(
         Dict mapping input type to HallucinationResult.
     """
     model.eval()
-    forced_decoder_ids = processor.get_decoder_prompt_ids(language=language, task="transcribe")
-
     results = {}
 
-    # Pure silence: mel spectrogram of zeros (log-mel of silence)
     # Whisper expects 30s at 16kHz -> 3000 mel frames at 80 mel bins
     n_mels = 80
-    seq_len = 3000  # 30s of audio
+    seq_len = 3000
 
     for input_type, gen_fn in [
         ("silence", lambda: torch.zeros(1, n_mels, seq_len) - 1.0),
@@ -174,20 +170,7 @@ def evaluate_hallucination(
         all_outputs = []
         for i in range(num_samples):
             input_features = gen_fn().to(device)
-
-            if hasattr(model, "generate"):
-                generated_ids = model.generate(
-                    input_features,
-                    forced_decoder_ids=forced_decoder_ids,
-                    max_new_tokens=128,
-                )
-            else:
-                generated_ids = model.whisper.generate(
-                    input_features,
-                    forced_decoder_ids=forced_decoder_ids,
-                    max_new_tokens=128,
-                )
-
+            generated_ids = _generate(model, input_features, language)
             text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
             all_outputs.append(text)
 
