@@ -1,0 +1,22 @@
+model:
+  whisper_size: small        # 244M params, 12 encoder layers
+  freeze_whisper: true
+  n_frequencies: 64
+  alpha_init: 0.01
+
+training:
+  dataset: librispeech-100h
+  gap_augmentation: true
+  gap_fractions: [0.0, 0.05, 0.10, 0.15]
+  batch_size: 8
+  lr: 5.0e-4
+  max_epochs: 15
+  fp16: true
+  gradient_checkpointing: true
+  seeds: [42, 123, 456, 789, 1337]
+
+eval:
+  gap_levels: [0, 5, 15, 30, multi]
+  test_sets: [test-clean, test-other]
+  hallucination_test: true
+  noise_levels_db: [-10, 0, 10, 20]

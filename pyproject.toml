@@ -1,0 +1,46 @@
+[project]
+name = "pulse-whisper"
+version = "0.1.0"
+description = "Oscillatory pulse dynamics for silence-robust speech recognition — learnable pulse injection into Whisper encoder"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0",
+    "torchaudio>=2.0",
+    "transformers>=4.36",
+    "datasets>=2.16",
+    "evaluate>=0.4",
+    "jiwer>=3.0",
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+    "scikit-learn>=1.2",
+    "scipy>=1.10",
+    "wandb>=0.15",
+    "tensorboard>=2.13",
+    "accelerate>=0.25",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1",
+]
+lora = [
+    "peft>=0.7",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pulse_whisper"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
