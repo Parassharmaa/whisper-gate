@@ -30,11 +30,13 @@ class PulseLayer(nn.Module):
         n_frequencies: int | None = None,
         alpha_init: float = 0.01,
         use_phase_net: bool = True,
+        alpha_max: float | None = None,
     ) -> None:
         super().__init__()
         self.hidden_size = hidden_size
         self.n_frequencies = n_frequencies or hidden_size
         self.use_phase_net = use_phase_net
+        self.alpha_max = alpha_max
 
         self.amplitude = nn.Parameter(torch.randn(hidden_size) * 0.1)
         self.omega = nn.Parameter(
@@ -65,7 +67,11 @@ class PulseLayer(nn.Module):
         else:
             oscillation = self.amplitude * torch.sin(self.omega * t)
 
-        return h + self.alpha * oscillation
+        alpha = self.alpha
+        if self.alpha_max is not None:
+            alpha = alpha.clamp(max=self.alpha_max)
+
+        return h + alpha * oscillation
 
     def get_pulse_signal(self, h: torch.Tensor, time_steps: torch.Tensor) -> torch.Tensor:
         """Return just the pulse signal (without adding to h), for analysis."""

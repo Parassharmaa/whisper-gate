@@ -34,6 +34,7 @@ class PulseWhisperEncoder(nn.Module):
         variant: Variant | str = Variant.C,
         n_frequencies: int = 64,
         alpha_init: float = 0.01,
+        alpha_max: float | None = None,
     ) -> None:
         super().__init__()
         if isinstance(variant, str):
@@ -66,19 +67,19 @@ class PulseWhisperEncoder(nn.Module):
             from pulse_whisper.models.pulse_module import PulseLayer
             for _ in range(self.num_encoder_layers):
                 self.injected_layers.append(
-                    PulseLayer(self.hidden_size, n_frequencies, alpha_init, use_phase_net=False)
+                    PulseLayer(self.hidden_size, n_frequencies, alpha_init, use_phase_net=False, alpha_max=alpha_max)
                 )
         elif variant == Variant.D:
             from pulse_whisper.models.pulse_module import PulseLayer
             for _ in range(self.num_encoder_layers):
                 self.injected_layers.append(
-                    PulseLayer(self.hidden_size, n_frequencies, alpha_init, use_phase_net=True)
+                    PulseLayer(self.hidden_size, n_frequencies, alpha_init, use_phase_net=True, alpha_max=alpha_max)
                 )
         elif variant == Variant.E:
             from pulse_whisper.models.pulse_module import PulseLayer
             for _ in range(self.num_encoder_layers):
                 self.injected_layers.append(
-                    PulseLayer(self.hidden_size, n_frequencies, alpha_init, use_phase_net=True)
+                    PulseLayer(self.hidden_size, n_frequencies, alpha_init, use_phase_net=True, alpha_max=alpha_max)
                 )
 
     def get_encoder_with_pulse(self, input_features: torch.Tensor) -> torch.Tensor:
@@ -195,6 +196,7 @@ def build_variant(
     whisper_size: str = "tiny",
     n_frequencies: int = 64,
     alpha_init: float = 0.01,
+    alpha_max: float | None = None,
 ) -> PulseWhisperEncoder:
     """Factory to build a PulseWhisperEncoder for a given variant."""
     model_name = f"openai/whisper-{whisper_size}"
@@ -203,6 +205,7 @@ def build_variant(
         variant=variant,
         n_frequencies=n_frequencies,
         alpha_init=alpha_init,
+        alpha_max=alpha_max,
     )
 
 

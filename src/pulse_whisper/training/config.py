@@ -14,6 +14,7 @@ class ModelConfig:
     freeze_whisper: bool = True
     n_frequencies: int = 64
     alpha_init: float = 0.01
+    alpha_max: float | None = None  # clamp alpha to this max value (None = unconstrained)
     pulse_layers: str = "all"  # "all" or comma-separated layer indices
 
 

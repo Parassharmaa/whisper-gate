@@ -76,6 +76,7 @@ def train_variant(
         whisper_size=config.model.whisper_size,
         n_frequencies=config.model.n_frequencies,
         alpha_init=config.model.alpha_init,
+        alpha_max=config.model.alpha_max,
     )
 
     trainable = model.trainable_param_count()
@@ -156,6 +157,7 @@ def evaluate_variant(
         whisper_size=config.model.whisper_size,
         n_frequencies=config.model.n_frequencies,
         alpha_init=config.model.alpha_init,
+        alpha_max=config.model.alpha_max,
     )
 
     if variant != Variant.A:

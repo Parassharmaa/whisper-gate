@@ -1,0 +1,25 @@
+model:
+  whisper_size: tiny
+  freeze_whisper: true
+  n_frequencies: 64
+  alpha_init: 0.01
+  alpha_max: 0.05            # clamp alpha to prevent representation collapse
+  pulse_layers: all
+
+training:
+  dataset: librispeech-10h
+  gap_augmentation: true
+  gap_fractions: [0.0, 0.05, 0.15]
+  batch_size: 16
+  lr: 1.0e-4                 # 10x lower LR to prevent overfitting
+  max_epochs: 10
+  fp16: true
+  seed: 42
+
+logging:
+  log_every_n_steps: 10
+
+eval:
+  gap_levels: [0, 5, 15, 30, multi]
+  test_set: test-clean
+  hallucination_test: true

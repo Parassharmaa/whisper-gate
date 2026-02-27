@@ -1,0 +1,266 @@
+{
+  "experiment": "phase1_hallucination",
+  "device": "mps",
+  "variants": {
+    "A": {
+      "silence": {
+        "input_type": "silence",
+        "hallucination_rate": 1.0,
+        "avg_output_length": 1.0,
+        "num_samples": 30,
+        "sample_outputs": [
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you"
+        ]
+      },
+      "white_noise": {
+        "input_type": "white_noise",
+        "hallucination_rate": 1.0,
+        "avg_output_length": 1.0,
+        "num_samples": 30,
+        "sample_outputs": [
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you"
+        ]
+      },
+      "speech_with_pauses": {
+        "input_type": "speech_with_pauses",
+        "hallucination_rate": 1.0,
+        "avg_extra_words": 2.566666666666667,
+        "num_samples": 30,
+        "sample_clean": [
+          " Conquered returned to its place amidst the tents.",
+          " The English forwarded to the French baskets of flowers, of which they had made a plantable provision to greet the arrival of the young princess. The French in return invited the English to a supper, which was to be given the next day.",
+          " Congratulations, report in upon the Princess Everywhere, during her journey.",
+          " From the respect paid her on all sides, she seemed like a queen. And from the adoration with which she was treated by two or three, she appeared in object of worship. The queen mother gave the French the most affectionate reception. France was her native country, and she has suffered too much unhappiness in England for England to have made her forget France.",
+          " She taught her daughter, then, by her own affection for it, that love for a country where they had both been hospitably received and where a brilliant future opened for them."
+        ],
+        "sample_gapped": [
+          " Conquered returned to its place amidst the tents.",
+          " The English forwarded to the French baskets of flowers, of which they had made a plantable provision to greet the arrival of the young",
+          " Congratulations, report in upon the Princess Everywhere, during her journey.",
+          " from the respect paid her on all sides, she seemed like a queen and from the adoration with which she was treated.",
+          " She taught her daughter, then, by her own affection for it, that love for a country where they had both been hospitably recited."
+        ],
+        "sample_references": [
+          "CONCORD RETURNED TO ITS PLACE AMIDST THE TENTS",
+          "THE ENGLISH FORWARDED TO THE FRENCH BASKETS OF FLOWERS OF WHICH THEY HAD MADE A PLENTIFUL PROVISION TO GREET THE ARRIVAL OF THE YOUNG PRINCESS THE FRENCH IN RETURN INVITED THE ENGLISH TO A SUPPER WHICH WAS TO BE GIVEN THE NEXT DAY",
+          "CONGRATULATIONS WERE POURED IN UPON THE PRINCESS EVERYWHERE DURING HER JOURNEY",
+          "FROM THE RESPECT PAID HER ON ALL SIDES SHE SEEMED LIKE A QUEEN AND FROM THE ADORATION WITH WHICH SHE WAS TREATED BY TWO OR THREE SHE APPEARED AN OBJECT OF WORSHIP THE QUEEN MOTHER GAVE THE FRENCH THE MOST AFFECTIONATE RECEPTION FRANCE WAS HER NATIVE COUNTRY AND SHE HAD SUFFERED TOO MUCH UNHAPPINESS IN ENGLAND FOR ENGLAND TO HAVE MADE HER FORGET FRANCE",
+          "SHE TAUGHT HER DAUGHTER THEN BY HER OWN AFFECTION FOR IT THAT LOVE FOR A COUNTRY WHERE THEY HAD BOTH BEEN HOSPITABLY RECEIVED AND WHERE A BRILLIANT FUTURE OPENED BEFORE THEM"
+        ]
+      }
+    },
+    "B": {
+      "silence": {
+        "input_type": "silence",
+        "hallucination_rate": 1.0,
+        "avg_output_length": 1.0,
+        "num_samples": 30,
+        "sample_outputs": [
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you"
+        ]
+      },
+      "white_noise": {
+        "input_type": "white_noise",
+        "hallucination_rate": 1.0,
+        "avg_output_length": 1.0,
+        "num_samples": 30,
+        "sample_outputs": [
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you"
+        ]
+      },
+      "speech_with_pauses": {
+        "input_type": "speech_with_pauses",
+        "hallucination_rate": 1.0,
+        "avg_extra_words": 2.566666666666667,
+        "num_samples": 30,
+        "sample_clean": [
+          " Conquered returned to its place amidst the tents.",
+          " The English forwarded to the French baskets of flowers, of which they had made a plantable provision to greet the arrival of the young princess. The French in return invited the English to a supper, which was to be given the next day.",
+          " Congratulations, report in upon the Princess Everywhere, during her journey.",
+          " From the respect paid her on all sides, she seemed like a queen. And from the adoration with which she was treated by two or three, she appeared in object of worship. The queen mother gave the French the most affectionate reception. France was her native country, and she has suffered too much unhappiness in England for England to have made her forget France.",
+          " She taught her daughter, then, by her own affection for it, that love for a country where they had both been hospitably received and where a brilliant future opened for them."
+        ],
+        "sample_gapped": [
+          " Conquered returned to its place amidst the tents.",
+          " The English forwarded to the French baskets of flowers, of which they had made a plantable provision to greet the arrival of the young",
+          " Congratulations, report in upon the Princess Everywhere, during her journey.",
+          " from the respect paid her on all sides, she seemed like a queen and from the adoration with which she was treated.",
+          " She taught her daughter, then, by her own affection for it, that love for a country where they had both been hospitably recited."
+        ],
+        "sample_references": [
+          "CONCORD RETURNED TO ITS PLACE AMIDST THE TENTS",
+          "THE ENGLISH FORWARDED TO THE FRENCH BASKETS OF FLOWERS OF WHICH THEY HAD MADE A PLENTIFUL PROVISION TO GREET THE ARRIVAL OF THE YOUNG PRINCESS THE FRENCH IN RETURN INVITED THE ENGLISH TO A SUPPER WHICH WAS TO BE GIVEN THE NEXT DAY",
+          "CONGRATULATIONS WERE POURED IN UPON THE PRINCESS EVERYWHERE DURING HER JOURNEY",
+          "FROM THE RESPECT PAID HER ON ALL SIDES SHE SEEMED LIKE A QUEEN AND FROM THE ADORATION WITH WHICH SHE WAS TREATED BY TWO OR THREE SHE APPEARED AN OBJECT OF WORSHIP THE QUEEN MOTHER GAVE THE FRENCH THE MOST AFFECTIONATE RECEPTION FRANCE WAS HER NATIVE COUNTRY AND SHE HAD SUFFERED TOO MUCH UNHAPPINESS IN ENGLAND FOR ENGLAND TO HAVE MADE HER FORGET FRANCE",
+          "SHE TAUGHT HER DAUGHTER THEN BY HER OWN AFFECTION FOR IT THAT LOVE FOR A COUNTRY WHERE THEY HAD BOTH BEEN HOSPITABLY RECEIVED AND WHERE A BRILLIANT FUTURE OPENED BEFORE THEM"
+        ]
+      }
+    },
+    "C": {
+      "silence": {
+        "input_type": "silence",
+        "hallucination_rate": 1.0,
+        "avg_output_length": 1.0,
+        "num_samples": 30,
+        "sample_outputs": [
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you"
+        ]
+      },
+      "white_noise": {
+        "input_type": "white_noise",
+        "hallucination_rate": 1.0,
+        "avg_output_length": 1.0,
+        "num_samples": 30,
+        "sample_outputs": [
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you",
+          " you"
+        ]
+      },
+      "speech_with_pauses": {
+        "input_type": "speech_with_pauses",
+        "hallucination_rate": 1.0,
+        "avg_extra_words": 2.8666666666666667,
+        "num_samples": 30,
+        "sample_clean": [
+          " Concord return to its place amidst the tents.",
+          " The English forwarded to the French baskets of flowers of which they had made a plantable provision to greet the arrival of the young princess. The French in return invited the English to a supper, which was to be given the next day.",
+          " Congratulations, report in upon the Princess Everywhere During Her Journey.",
+          " From the respect paid her on all sides, she seemed like a queen, and from the adoration with which she was treated by two or three, she appeared in object of worship. The queen mother gave the French the most affectionate reception. France was her native country, and she had suffered too much in hapingous in England for England to have made her forget France.",
+          " She taught her daughter, then, by her own affection for it, that love for a country where they had both been hospitably received and where a brilliant future opened for them."
+        ],
+        "sample_gapped": [
+          " Concord return to its place amidst the tents.",
+          " The English forwarded to the French baskets of flowers of which they had made a plantable provision to greet the arrival of the young",
+          " Congratulations, report in upon the Princess Everywhere During Her Journey.",
+          " From the respect paid her on all sides, she seemed like a queen and from the adoration with which she was treated.",
+          " She taught her daughter, then, by her own affection for it, that love for a country where they had both been hospitably recited."
+        ],
+        "sample_references": [
+          "CONCORD RETURNED TO ITS PLACE AMIDST THE TENTS",
+          "THE ENGLISH FORWARDED TO THE FRENCH BASKETS OF FLOWERS OF WHICH THEY HAD MADE A PLENTIFUL PROVISION TO GREET THE ARRIVAL OF THE YOUNG PRINCESS THE FRENCH IN RETURN INVITED THE ENGLISH TO A SUPPER WHICH WAS TO BE GIVEN THE NEXT DAY",
+          "CONGRATULATIONS WERE POURED IN UPON THE PRINCESS EVERYWHERE DURING HER JOURNEY",
+          "FROM THE RESPECT PAID HER ON ALL SIDES SHE SEEMED LIKE A QUEEN AND FROM THE ADORATION WITH WHICH SHE WAS TREATED BY TWO OR THREE SHE APPEARED AN OBJECT OF WORSHIP THE QUEEN MOTHER GAVE THE FRENCH THE MOST AFFECTIONATE RECEPTION FRANCE WAS HER NATIVE COUNTRY AND SHE HAD SUFFERED TOO MUCH UNHAPPINESS IN ENGLAND FOR ENGLAND TO HAVE MADE HER FORGET FRANCE",
+          "SHE TAUGHT HER DAUGHTER THEN BY HER OWN AFFECTION FOR IT THAT LOVE FOR A COUNTRY WHERE THEY HAD BOTH BEEN HOSPITABLY RECEIVED AND WHERE A BRILLIANT FUTURE OPENED BEFORE THEM"
+        ]
+      }
+    },
+    "D": {
+      "silence": {
+        "input_type": "silence",
+        "hallucination_rate": 1.0,
+        "avg_output_length": 1.0,
+        "num_samples": 30,
+        "sample_outputs": [
+          " a",
+          " a",
+          " a",
+          " a",
+          " a",
+          " a",
+          " a",
+          " a",
+          " a",
+          " a"
+        ]
+      },
+      "white_noise": {
+        "input_type": "white_noise",
+        "hallucination_rate": 1.0,
+        "avg_output_length": 1.0,
+        "num_samples": 30,
+        "sample_outputs": [
+          " You",
+          " You",
+          " You",
+          " You",
+          " You",
+          " a",
+          " You",
+          " You",
+          " You",
+          " You"
+        ]
+      },
+      "speech_with_pauses": {
+        "input_type": "speech_with_pauses",
+        "hallucination_rate": 0.8333333333333334,
+        "avg_extra_words": 17.0,
+        "num_samples": 30,
+        "sample_clean": [
+          " a man. Call and court return to its place amidst the tents.",
+          " a new one. The English forwarded to the French baskets of flowers of which they had made a plantable provision to greet the arrival of the young princess. The French in return invited the English to a supper which was to be given the next day.",
+          " KINGGRAGULATIONS WERE PORED IN APPON THE PRINCESS EVERYWHERE DURING HER JURNEY",
+          " A. From the respect paid her on all sides she seemed like a queen and from the adoration with which she was treated by two or three she appeared in object of worship. The queen mother gave the French the most affectionate reception. France was her native country and she has suffered too much and happiness in England for England to have made her forget France.",
+          " She taught her daughter then by her own affection for it that love for a country where they had both been hospitably received and where a brilliant future opened for them."
+        ],
+        "sample_gapped": [
+          " a man. Call and court return to its place amidst the tents.",
+          " a new one. The English forwarded to the French baskets of flowers of which they had made a plantable provision to greet the arrival of the young",
+          " KINGGRAGULATIONS WERE PORED IN APPON THE PRINCESS EVERYWHERE DURING HER JURNEY",
+          " a child. From the respect paid her on all sides she seemed like a clean and from the adoration with which she was treated.",
+          " She taught her daughter then by her own affection for it that love for a country where they had both been hospitably recited"
+        ],
+        "sample_references": [
+          "CONCORD RETURNED TO ITS PLACE AMIDST THE TENTS",
+          "THE ENGLISH FORWARDED TO THE FRENCH BASKETS OF FLOWERS OF WHICH THEY HAD MADE A PLENTIFUL PROVISION TO GREET THE ARRIVAL OF THE YOUNG PRINCESS THE FRENCH IN RETURN INVITED THE ENGLISH TO A SUPPER WHICH WAS TO BE GIVEN THE NEXT DAY",
+          "CONGRATULATIONS WERE POURED IN UPON THE PRINCESS EVERYWHERE DURING HER JOURNEY",
+          "FROM THE RESPECT PAID HER ON ALL SIDES SHE SEEMED LIKE A QUEEN AND FROM THE ADORATION WITH WHICH SHE WAS TREATED BY TWO OR THREE SHE APPEARED AN OBJECT OF WORSHIP THE QUEEN MOTHER GAVE THE FRENCH THE MOST AFFECTIONATE RECEPTION FRANCE WAS HER NATIVE COUNTRY AND SHE HAD SUFFERED TOO MUCH UNHAPPINESS IN ENGLAND FOR ENGLAND TO HAVE MADE HER FORGET FRANCE",
+          "SHE TAUGHT HER DAUGHTER THEN BY HER OWN AFFECTION FOR IT THAT LOVE FOR A COUNTRY WHERE THEY HAD BOTH BEEN HOSPITABLY RECEIVED AND WHERE A BRILLIANT FUTURE OPENED BEFORE THEM"
+        ]
+      }
+    }
+  }
+}
