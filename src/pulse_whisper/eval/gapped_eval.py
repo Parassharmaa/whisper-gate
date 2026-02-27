@@ -25,17 +25,7 @@ logger = logging.getLogger(__name__)
 
 def _generate(model, input_features: torch.Tensor, language: str = "en") -> torch.Tensor:
     """Generate token IDs using the appropriate model interface."""
-    gen_kwargs = {"language": language, "task": "transcribe", "max_new_tokens": 128}
-
-    # Unset max_length to avoid conflict with max_new_tokens
-    gen_config = None
-    if hasattr(model, "whisper"):
-        gen_config = model.whisper.generation_config
-    elif hasattr(model, "generation_config"):
-        gen_config = model.generation_config
-
-    if gen_config is not None:
-        gen_config.max_length = None
+    gen_kwargs = {"language": language, "task": "transcribe", "max_new_tokens": 440}
 
     if hasattr(model, "generate"):
         return model.generate(input_features, **gen_kwargs)
