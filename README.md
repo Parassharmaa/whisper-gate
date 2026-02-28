@@ -84,10 +84,10 @@ results/                      # Experiment results (JSON)
 ## Citation
 
 ```bibtex
-@article{sharma2025whispergate,
+@article{sharma2026whispergate,
   title={WhisperGate: Silence-Aware Gating for Hallucination-Free Speech Recognition with Frozen Whisper},
   author={Sharma, Paras},
-  year={2025}
+  year={2026}
 }
 ```
 
