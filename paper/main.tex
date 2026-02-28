@@ -229,11 +229,12 @@ it reaches the decoder.
     \draw[arrow] (gated) -- (dec);
     \draw[arrow] (dec) -- (out);
 
-    % Dashed line from probs to decoder (attention bias mode)
+    % Curved dashed line from probs to decoder (attention bias mode)
     \draw[-{Stealth[length=2.5mm]}, thick, dashed, orange!70!black]
-        (probs.south) -- ++(0,-0.7) -| (dec.east);
-    \node[font=\scriptsize, text=orange!70!black, right=0.7cm of probs, anchor=west, yshift=-0.8cm]
-        {attn.\ bias: $5 \log p$};
+        (probs.south) to[out=-90, in=0]
+        node[pos=0.45, right=0.15cm, font=\scriptsize, text=orange!70!black]
+        {attn.\ bias: $5 \log p$}
+        (dec.east);
 
     % Frozen labels
     \node[right=0.5cm of enc, font=\scriptsize, text=blue!50] {frozen};
