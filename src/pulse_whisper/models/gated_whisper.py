@@ -14,7 +14,7 @@ import torch.nn as nn
 from transformers import WhisperForConditionalGeneration, WhisperProcessor
 from transformers.modeling_outputs import BaseModelOutput
 
-from pulse_whisper.models.silence_gate import SilenceGate
+from pulse_whisper.models.silence_gate import SilenceGate, TemporalSilenceGate
 
 
 class GatedWhisper(nn.Module):
@@ -28,6 +28,8 @@ class GatedWhisper(nn.Module):
         whisper_model_name: str = "openai/whisper-tiny",
         gate_hidden_dim: int = 32,
         gate_loss_weight: float = 1.0,
+        temporal_smoothing: bool = False,
+        temporal_kernel_size: int = 5,
     ) -> None:
         super().__init__()
         self.whisper_model_name = whisper_model_name
@@ -41,7 +43,14 @@ class GatedWhisper(nn.Module):
             param.requires_grad = False
 
         d_model = self.whisper.config.d_model
-        self.silence_gate = SilenceGate(d_model=d_model, hidden_dim=gate_hidden_dim)
+        if temporal_smoothing:
+            self.silence_gate = TemporalSilenceGate(
+                d_model=d_model,
+                hidden_dim=gate_hidden_dim,
+                kernel_size=temporal_kernel_size,
+            )
+        else:
+            self.silence_gate = SilenceGate(d_model=d_model, hidden_dim=gate_hidden_dim)
 
     def _run_encoder(self, input_features: torch.Tensor) -> torch.Tensor:
         """Run frozen encoder."""
@@ -133,6 +142,7 @@ class GatedWhisper(nn.Module):
         self,
         input_features: torch.Tensor,
         hard_gate: bool = False,
+        attention_bias: bool = False,
         silence_threshold: float = 0.5,
         **generate_kwargs,
     ) -> torch.Tensor:
@@ -142,30 +152,69 @@ class GatedWhisper(nn.Module):
             input_features: Mel spectrogram.
             hard_gate: If True, use hard gating (zero out frames below threshold)
                 and short-circuit to <|endoftext|> if entire input is silence.
+            attention_bias: If True, pass log(gate_prob) as cross-attention bias
+                instead of modifying encoder hidden states. Provides softer
+                suppression at boundaries.
             silence_threshold: Gate probability below which a frame is silence.
         """
         encoder_hidden = self._run_encoder(input_features)
         _, gate_probs = self.silence_gate(encoder_hidden)
 
-        if hard_gate:
-            # Hard gating: binary mask
-            gate_mask = (gate_probs > silence_threshold).float().unsqueeze(-1)
-            gated_hidden = encoder_hidden * gate_mask
-
-            # Short-circuit: if mean speech prob < threshold for any sample,
-            # return <|endoftext|> immediately for that sample
+        # Short-circuit for full silence (used by both hard_gate and attention_bias)
+        if hard_gate or attention_bias:
             batch_speech_prob = gate_probs.mean(dim=1)  # (batch,)
             all_silence = batch_speech_prob < silence_threshold
 
             if all_silence.all():
-                # All samples are silence — return endoftext
                 eos_id = self.whisper.config.eos_token_id
                 return torch.full(
                     (input_features.shape[0], 1), eos_id,
                     dtype=torch.long, device=input_features.device
                 )
 
-            # For mixed batches, still run generation but with hard-gated encoder
+        if attention_bias:
+            # Cross-attention bias: log(gate_prob) added to attention scores
+            # gate_probs: (batch, src_len)
+            # Mask format: (batch, 1, 1, src_len) — broadcast over heads and tgt_len
+            eps = 1e-6
+            bias = torch.log(gate_probs.clamp(min=eps))  # (batch, src_len)
+            # Scale bias to have stronger effect (log(0.1) ≈ -2.3 might be too weak)
+            bias = bias * 5.0
+            attn_mask = bias.unsqueeze(1).unsqueeze(1)  # (batch, 1, 1, src_len)
+
+            # Pass unmodified encoder hidden states + attention bias
+            encoder_outputs = BaseModelOutput(last_hidden_state=encoder_hidden)
+
+            # Monkey-patch decoder forward to inject encoder_attention_mask
+            original_forward = self.whisper.model.decoder.forward
+
+            def patched_forward(*args, **kwargs):
+                kwargs["encoder_attention_mask"] = attn_mask
+                return original_forward(*args, **kwargs)
+
+            self.whisper.model.decoder.forward = patched_forward
+            try:
+                tokens = self.whisper.generate(
+                    encoder_outputs=encoder_outputs,
+                    **generate_kwargs,
+                )
+            finally:
+                self.whisper.model.decoder.forward = original_forward
+
+            # Replace output for all-silence samples
+            if all_silence.any():
+                eos_id = self.whisper.config.eos_token_id
+                for b in range(input_features.shape[0]):
+                    if all_silence[b]:
+                        tokens[b] = eos_id
+
+            return tokens
+
+        elif hard_gate:
+            # Hard gating: binary mask
+            gate_mask = (gate_probs > silence_threshold).float().unsqueeze(-1)
+            gated_hidden = encoder_hidden * gate_mask
+
             encoder_outputs = BaseModelOutput(last_hidden_state=gated_hidden)
             tokens = self.whisper.generate(
                 encoder_outputs=encoder_outputs,

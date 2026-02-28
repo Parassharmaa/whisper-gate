@@ -1,0 +1,233 @@
+{
+  "baseline": {
+    "gap_5": {
+      "total_samples": 240,
+      "total_insertions": 54,
+      "total_ref_words": 5125,
+      "insertion_rate": 0.01053658536585366,
+      "samples_with_hallucination": 41,
+      "hallucination_sample_rate": 0.17083333333333334,
+      "examples": [
+        {
+          "ground_truth": "IN THOSE VERY TERMS I EVEN ADDED MORE",
+          "gapped_output": " In those very terms I even had it more.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "UPON THE LARGE SQUARE IN FRONT OF THE HOTEL THE SHADOWS OF THE TENTS INTERSECTED BY THE GOLDEN MOONBEAMS FORMED AS IT WERE A HUGE MOSAIC OF JET AND YELLOW FLAGSTONES",
+          "gapped_output": " Upon the large square in front of the hotel, the shadows of the tents intersected by the golden moon beams formed as it were a huge mosaic of jet and yellow flagstones.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "BRAGELONNE WATCHED FOR SOME TIME THE CONDUCT OF THE TWO LOVERS LISTENED TO THE LOUD AND UNCIVIL SLUMBERS OF MANICAMP WHO SNORED AS IMPERIOUSLY AS THOUGH HE WAS WEARING HIS BLUE AND GOLD INSTEAD OF HIS VIOLET SUIT",
+          "gapped_output": " Brayla on, watched for some time, the conduct of the two lovers listened to the loud and unsillable slumbers of Manacamp, who snored as empirously as though he was wearing his blue and gold instead of his violet suit.",
+          "insertions": 1
+        }
+      ]
+    },
+    "gap_15": {
+      "total_samples": 240,
+      "total_insertions": 53,
+      "total_ref_words": 5125,
+      "insertion_rate": 0.010341463414634147,
+      "samples_with_hallucination": 42,
+      "hallucination_sample_rate": 0.175,
+      "examples": [
+        {
+          "ground_truth": "IN THOSE VERY TERMS I EVEN ADDED MORE",
+          "gapped_output": " In those very terms I even had it more.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "UPON THE LARGE SQUARE IN FRONT OF THE HOTEL THE SHADOWS OF THE TENTS INTERSECTED BY THE GOLDEN MOONBEAMS FORMED AS IT WERE A HUGE MOSAIC OF JET AND YELLOW FLAGSTONES",
+          "gapped_output": " Upon the large square in front of the hotel, the shadows of the tents intersected by the golden moon beams formed as it were a huge mosaic of jet and yellow flagstones.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "BRAGELONNE WATCHED FOR SOME TIME THE CONDUCT OF THE TWO LOVERS LISTENED TO THE LOUD AND UNCIVIL SLUMBERS OF MANICAMP WHO SNORED AS IMPERIOUSLY AS THOUGH HE WAS WEARING HIS BLUE AND GOLD INSTEAD OF HIS VIOLET SUIT",
+          "gapped_output": " Brayla on, watched for some time, the conduct of the two lovers listened to the loud and unsillable slumbers of Manacamp, who snored as empirically as though he was wearing his blue and gold instead of",
+          "insertions": 1
+        }
+      ]
+    },
+    "gap_30": {
+      "total_samples": 240,
+      "total_insertions": 50,
+      "total_ref_words": 5125,
+      "insertion_rate": 0.00975609756097561,
+      "samples_with_hallucination": 40,
+      "hallucination_sample_rate": 0.16666666666666666,
+      "examples": [
+        {
+          "ground_truth": "IN THOSE VERY TERMS I EVEN ADDED MORE",
+          "gapped_output": " In those very terms I even had it more.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "UPON THE LARGE SQUARE IN FRONT OF THE HOTEL THE SHADOWS OF THE TENTS INTERSECTED BY THE GOLDEN MOONBEAMS FORMED AS IT WERE A HUGE MOSAIC OF JET AND YELLOW FLAGSTONES",
+          "gapped_output": " Upon the large square in front of the hotel, the shadows of the tents intersected by the golden moon beams formed as it were a huge mosaic of jet and yellow",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "BRAGELONNE WATCHED FOR SOME TIME THE CONDUCT OF THE TWO LOVERS LISTENED TO THE LOUD AND UNCIVIL SLUMBERS OF MANICAMP WHO SNORED AS IMPERIOUSLY AS THOUGH HE WAS WEARING HIS BLUE AND GOLD INSTEAD OF HIS VIOLET SUIT",
+          "gapped_output": " Brayla on, watched for some time, the conduct of the two lovers listened to the loud and unsillable slumbers of Manacamp, who snored as empirically as",
+          "insertions": 1
+        }
+      ]
+    }
+  },
+  "soft_gate": {
+    "gap_5": {
+      "total_samples": 240,
+      "total_insertions": 68,
+      "total_ref_words": 5125,
+      "insertion_rate": 0.013268292682926829,
+      "samples_with_hallucination": 50,
+      "hallucination_sample_rate": 0.20833333333333334,
+      "examples": [
+        {
+          "ground_truth": "IN THOSE VERY TERMS I EVEN ADDED MORE",
+          "gapped_output": " In those very terms I even had it more.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "UPON THE LARGE SQUARE IN FRONT OF THE HOTEL THE SHADOWS OF THE TENTS INTERSECTED BY THE GOLDEN MOONBEAMS FORMED AS IT WERE A HUGE MOSAIC OF JET AND YELLOW FLAGSTONES",
+          "gapped_output": " Upon the large square in front of the hotel, the shadows of the tents intersected by the golden moon beams, formed as it were a huge mosaic of jet and yellow flagstones.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "BRAGELONNE WATCHED FOR SOME TIME THE CONDUCT OF THE TWO LOVERS LISTENED TO THE LOUD AND UNCIVIL SLUMBERS OF MANICAMP WHO SNORED AS IMPERIOUSLY AS THOUGH HE WAS WEARING HIS BLUE AND GOLD INSTEAD OF HIS VIOLET SUIT",
+          "gapped_output": " Brayla on, watched for some time, the conduct of the two lovers, listened to the loud and unsillable slumbers of Manacamp, who snored as empirously as though he was wearing his blue and gold instead of his violet suit.",
+          "insertions": 1
+        }
+      ]
+    },
+    "gap_15": {
+      "total_samples": 240,
+      "total_insertions": 511,
+      "total_ref_words": 5125,
+      "insertion_rate": 0.09970731707317074,
+      "samples_with_hallucination": 49,
+      "hallucination_sample_rate": 0.20416666666666666,
+      "examples": [
+        {
+          "ground_truth": "IN THOSE VERY TERMS I EVEN ADDED MORE",
+          "gapped_output": " In those very terms I even had it more.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "BUT CONTINUED RAOUL NOT INTERRUPTED BY THIS MOVEMENT OF HIS FRIEND HEAVEN BE PRAISED THE FRENCH WHO ARE PRONOUNCED TO BE THOUGHTLESS AND INDISCREET RECKLESS EVEN ARE CAPABLE OF BRINGING A CALM AND SOUND JUDGMENT TO BEAR ON MATTERS OF SUCH HIGH IMPORTANCE",
+          "gapped_output": " But, continued Rauh, not interrupted by this movement of his friend, Heaven be praised the French who are pronounced to be thoughtless and indiscrete reckless, even, are capable of bringing a calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm, calm",
+          "insertions": 188
+        },
+        {
+          "ground_truth": "UPON THE LARGE SQUARE IN FRONT OF THE HOTEL THE SHADOWS OF THE TENTS INTERSECTED BY THE GOLDEN MOONBEAMS FORMED AS IT WERE A HUGE MOSAIC OF JET AND YELLOW FLAGSTONES",
+          "gapped_output": " Upon the large square in front of the hotel, the shadows of the tents intersected by the golden moon beams formed as it were a huge mosaic of jet and yellow flag stones.",
+          "insertions": 2
+        }
+      ]
+    },
+    "gap_30": {
+      "total_samples": 240,
+      "total_insertions": 64,
+      "total_ref_words": 5125,
+      "insertion_rate": 0.012487804878048781,
+      "samples_with_hallucination": 48,
+      "hallucination_sample_rate": 0.2,
+      "examples": [
+        {
+          "ground_truth": "IN THOSE VERY TERMS I EVEN ADDED MORE",
+          "gapped_output": " In those very terms I even had it more.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "UPON THE LARGE SQUARE IN FRONT OF THE HOTEL THE SHADOWS OF THE TENTS INTERSECTED BY THE GOLDEN MOONBEAMS FORMED AS IT WERE A HUGE MOSAIC OF JET AND YELLOW FLAGSTONES",
+          "gapped_output": " Upon the large square in front of the hotel, the shadows of the tents intersected by the golden moon beams formed as it were a huge mosaic of jet and yellow.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "BRAGELONNE WATCHED FOR SOME TIME THE CONDUCT OF THE TWO LOVERS LISTENED TO THE LOUD AND UNCIVIL SLUMBERS OF MANICAMP WHO SNORED AS IMPERIOUSLY AS THOUGH HE WAS WEARING HIS BLUE AND GOLD INSTEAD OF HIS VIOLET SUIT",
+          "gapped_output": " Bray the lawn, watched for some time, the conduct of the two lovers, listened to the loud and unsillable slumbers of Manacamp, who snored as empirically as the",
+          "insertions": 2
+        }
+      ]
+    }
+  },
+  "hard_gate": {
+    "gap_5": {
+      "total_samples": 240,
+      "total_insertions": 58,
+      "total_ref_words": 5125,
+      "insertion_rate": 0.011317073170731707,
+      "samples_with_hallucination": 45,
+      "hallucination_sample_rate": 0.1875,
+      "examples": [
+        {
+          "ground_truth": "IN THOSE VERY TERMS I EVEN ADDED MORE",
+          "gapped_output": " In those very terms I even had it more.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "UPON THE LARGE SQUARE IN FRONT OF THE HOTEL THE SHADOWS OF THE TENTS INTERSECTED BY THE GOLDEN MOONBEAMS FORMED AS IT WERE A HUGE MOSAIC OF JET AND YELLOW FLAGSTONES",
+          "gapped_output": " Upon the large square in front of the hotel, the shadows of the tents intersected by the golden moon beams formed as it were a huge mosaic of jet and yellow flagstones.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "BRAGELONNE WATCHED FOR SOME TIME THE CONDUCT OF THE TWO LOVERS LISTENED TO THE LOUD AND UNCIVIL SLUMBERS OF MANICAMP WHO SNORED AS IMPERIOUSLY AS THOUGH HE WAS WEARING HIS BLUE AND GOLD INSTEAD OF HIS VIOLET SUIT",
+          "gapped_output": " Brayla on, watched for some time, the conduct of the two lovers listened to the loud and unsillable slumbers of Manacamp, who snored as empirically as though he was wearing his blue and gold instead of his violet suit.",
+          "insertions": 1
+        }
+      ]
+    },
+    "gap_15": {
+      "total_samples": 240,
+      "total_insertions": 58,
+      "total_ref_words": 5125,
+      "insertion_rate": 0.011317073170731707,
+      "samples_with_hallucination": 47,
+      "hallucination_sample_rate": 0.19583333333333333,
+      "examples": [
+        {
+          "ground_truth": "IN THOSE VERY TERMS I EVEN ADDED MORE",
+          "gapped_output": " In those very terms I even had it more.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "UPON THE LARGE SQUARE IN FRONT OF THE HOTEL THE SHADOWS OF THE TENTS INTERSECTED BY THE GOLDEN MOONBEAMS FORMED AS IT WERE A HUGE MOSAIC OF JET AND YELLOW FLAGSTONES",
+          "gapped_output": " Upon the large square in front of the hotel, the shadows of the tents intersected by the golden moon beams formed as it were a huge mosaic of jet and yellow flagstones.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "BRAGELONNE WATCHED FOR SOME TIME THE CONDUCT OF THE TWO LOVERS LISTENED TO THE LOUD AND UNCIVIL SLUMBERS OF MANICAMP WHO SNORED AS IMPERIOUSLY AS THOUGH HE WAS WEARING HIS BLUE AND GOLD INSTEAD OF HIS VIOLET SUIT",
+          "gapped_output": " Brayla on, watched for some time, the conduct of the two lovers listened to the loud and unsillable slumbers of Manacamp, who snored as empirically as though he was wearing his blue and gold instead of",
+          "insertions": 1
+        }
+      ]
+    },
+    "gap_30": {
+      "total_samples": 240,
+      "total_insertions": 57,
+      "total_ref_words": 5125,
+      "insertion_rate": 0.011121951219512195,
+      "samples_with_hallucination": 46,
+      "hallucination_sample_rate": 0.19166666666666668,
+      "examples": [
+        {
+          "ground_truth": "IN THOSE VERY TERMS I EVEN ADDED MORE",
+          "gapped_output": " In those very terms I even had it more.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "UPON THE LARGE SQUARE IN FRONT OF THE HOTEL THE SHADOWS OF THE TENTS INTERSECTED BY THE GOLDEN MOONBEAMS FORMED AS IT WERE A HUGE MOSAIC OF JET AND YELLOW FLAGSTONES",
+          "gapped_output": " Upon the large square in front of the hotel, the shadows of the tents intersected by the golden moon beams formed as it were a huge mosaic of jet and yellow jet.",
+          "insertions": 1
+        },
+        {
+          "ground_truth": "BRAGELONNE WATCHED FOR SOME TIME THE CONDUCT OF THE TWO LOVERS LISTENED TO THE LOUD AND UNCIVIL SLUMBERS OF MANICAMP WHO SNORED AS IMPERIOUSLY AS THOUGH HE WAS WEARING HIS BLUE AND GOLD INSTEAD OF HIS VIOLET SUIT",
+          "gapped_output": " Bray the lawn, watched for some time, the conduct of the two lovers, listened to the loud and uncivil slumbers of Manacamp, who snored as empirically as the",
+          "insertions": 2
+        }
+      ]
+    }
+  }
+}
