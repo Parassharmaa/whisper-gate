@@ -28,22 +28,27 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class TestCleanDataset(Dataset):
-    """Minimal dataset that loads only test-clean split."""
+class StreamingTestCleanDataset(Dataset):
+    """Loads test-clean via streaming to avoid downloading all clean splits."""
 
     def __init__(self, whisper_size: str = "small"):
         self.processor = WhisperProcessor.from_pretrained(f"openai/whisper-{whisper_size}")
-        # Load only test split of clean config
-        self.dataset = load_dataset(
-            "librispeech_asr", "clean", split="test",
-            trust_remote_code=True,
+        # Stream test-clean to avoid massive download of train splits
+        logger.info("Streaming test-clean dataset...")
+        ds = load_dataset(
+            "librispeech_asr", "clean", split="test", streaming=True,
         )
+        # Materialize into memory (test-clean is only 2620 samples, ~1.5GB)
+        self.items = []
+        for item in ds:
+            self.items.append(item)
+        logger.info(f"Loaded {len(self.items)} samples")
 
     def __len__(self):
-        return len(self.dataset)
+        return len(self.items)
 
     def __getitem__(self, idx):
-        item = self.dataset[idx]
+        item = self.items[idx]
         audio = item["audio"]["array"]
         sr = item["audio"]["sampling_rate"]
         text = item["text"]
@@ -86,7 +91,7 @@ def main():
     model.eval()
 
     batch_size = 16 if device.type == "cuda" else 4
-    dataset = TestCleanDataset(whisper_size="small")
+    dataset = StreamingTestCleanDataset(whisper_size="small")
     test_loader = DataLoader(
         dataset, batch_size=batch_size, shuffle=False,
         num_workers=0, collate_fn=collate_fn,
