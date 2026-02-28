@@ -163,7 +163,7 @@ class Trainer:
         torch.save({
             "model_state_dict": {
                 k: v for k, v in self.model.state_dict().items()
-                if any(k.startswith(prefix) for prefix in ("injected_layers",))
+                if any(k.startswith(prefix) for prefix in ("injected_layers", "decoder_pulse", "silence_gate"))
             },
             "optimizer_state_dict": self.optimizer.state_dict(),
             "global_step": self.global_step,

@@ -123,7 +123,8 @@ def random_gap_augmentation(
     mel_spectrogram: torch.Tensor,
     gap_fractions: list[float] = (0.0, 0.05, 0.15),
     silence_value: float = -1.0,
-) -> torch.Tensor:
+    return_mask: bool = False,
+) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor]:
     """Randomly apply gap augmentation during training.
 
     Randomly selects a gap fraction and applies it.
@@ -133,23 +134,32 @@ def random_gap_augmentation(
         mel_spectrogram: Input mel (batch, n_mels, seq_len).
         gap_fractions: List of possible gap fractions to sample from.
         silence_value: Value for silence regions.
+        return_mask: If True, also return speech mask (1.0=speech, 0.0=silence).
 
     Returns:
-        Augmented mel spectrogram.
+        Augmented mel spectrogram, or tuple of (augmented_mel, speech_mask) if return_mask=True.
+        speech_mask is (batch, seq_len) float tensor.
     """
     idx = torch.randint(len(gap_fractions), (1,)).item()
     frac = gap_fractions[idx]
 
+    batch_size, n_mels, seq_len = mel_spectrogram.shape
+
     if frac == 0.0:
+        if return_mask:
+            return mel_spectrogram, torch.ones(batch_size, seq_len, device=mel_spectrogram.device)
         return mel_spectrogram
 
-    batch_size, n_mels, seq_len = mel_spectrogram.shape
     gap_len = max(1, int(seq_len * frac))
 
     # Random start position per sample
     gapped = mel_spectrogram.clone()
+    speech_mask = torch.ones(batch_size, seq_len, device=mel_spectrogram.device)
     for b in range(batch_size):
         start = torch.randint(0, max(1, seq_len - gap_len), (1,)).item()
         gapped[b, :, start:start + gap_len] = silence_value
+        speech_mask[b, start:start + gap_len] = 0.0
 
+    if return_mask:
+        return gapped, speech_mask
     return gapped

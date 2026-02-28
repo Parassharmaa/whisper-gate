@@ -1,0 +1,91 @@
+{
+  "experiment": "silence_gate_v4_two_stage",
+  "config": {
+    "gate_hidden_dim": 32,
+    "lr": 0.001,
+    "max_epochs": 10,
+    "silence_fraction": 0.3,
+    "approach": "two-stage: BCE classifier first, then inference with gating"
+  },
+  "device": "mps",
+  "evaluations": [
+    {
+      "gap_evaluation": {
+        "gap_0": {
+          "wer": 0.08207166768107121,
+          "cer": 0.03345006512779996,
+          "num_samples": 2620
+        },
+        "gap_5": {
+          "wer": 0.10670267802799757,
+          "cer": 0.05680354181347114,
+          "num_samples": 2620
+        },
+        "gap_15": {
+          "wer": 0.20648204503956177,
+          "cer": 0.14619589588093357,
+          "num_samples": 2620
+        },
+        "gap_30": {
+          "wer": 0.32379793061472917,
+          "cer": 0.2757005687116084,
+          "num_samples": 2620
+        },
+        "multi_gap": {
+          "wer": 0.2756200547778454,
+          "cer": 0.22641697451118561,
+          "num_samples": 2620
+        }
+      },
+      "hallucination": {
+        "silence": {
+          "hallucination_rate": 1.0,
+          "avg_output_length": 1.0,
+          "num_samples": 30
+        },
+        "white_noise": {
+          "hallucination_rate": 1.0,
+          "avg_output_length": 1.0,
+          "num_samples": 30
+        }
+      },
+      "variant": "silence_gate_v4"
+    }
+  ],
+  "training": {
+    "bce_loss": [
+      0.31331537372573126,
+      0.14310332479257157,
+      0.10610708342500905,
+      0.09643885955297747,
+      0.07835827060251929,
+      0.07384837711198702,
+      0.0663995980675327,
+      0.06330703830544177,
+      0.06492485073733263,
+      0.06810077030066006
+    ],
+    "accuracy": [
+      0.8681036257309942,
+      0.9452685380116959,
+      0.959134269005848,
+      0.9665183625730994,
+      0.9744605847953216,
+      0.9763978947368421,
+      0.9793146198830409,
+      0.9805585964912281,
+      0.979534269005848,
+      0.9785897076023392
+    ]
+  },
+  "hallucination_hard_gate": {
+    "silence": {
+      "hallucination_rate": 0.0,
+      "num_samples": 30
+    },
+    "white_noise": {
+      "hallucination_rate": 0.0,
+      "num_samples": 30
+    }
+  }
+}

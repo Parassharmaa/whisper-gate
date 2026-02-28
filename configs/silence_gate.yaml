@@ -1,0 +1,25 @@
+model:
+  whisper_size: tiny
+  freeze_whisper: true
+  # Silence gate config
+  gate_hidden_dim: 32
+  gate_loss_weight: 1.0
+
+training:
+  dataset: librispeech-10h
+  gap_augmentation: true
+  gap_fractions: [0.0, 0.05, 0.15, 0.30]  # include larger gaps for gate training
+  batch_size: 16
+  lr: 1.0e-3
+  max_epochs: 15
+  fp16: true
+  seed: 42
+  warmup_steps: 200
+
+logging:
+  log_every_n_steps: 10
+
+eval:
+  gap_levels: [0, 5, 15, 30, multi]
+  test_set: test-clean
+  hallucination_test: true

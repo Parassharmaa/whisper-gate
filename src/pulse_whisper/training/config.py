@@ -18,6 +18,9 @@ class ModelConfig:
     pulse_layers: str = "all"  # "all" or comma-separated layer indices
     decoder_pulse: bool = False  # use decoder head pulse injection instead of encoder pulse
     use_phase_net: bool = False  # state-dependent phase in pulse modules
+    gate_hidden_dim: int = 32  # silence gate MLP hidden dim
+    gate_loss_weight: float = 1.0  # weight for auxiliary gate BCE loss
+    silence_injection_rate: float = 0.1  # fraction of training samples replaced with pure silence
 
 
 @dataclass
