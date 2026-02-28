@@ -2,6 +2,8 @@
 
 **Silence-Aware Gating for Hallucination-Free Speech Recognition with Frozen Whisper**
 
+[[Paper (PDF)]](paper/main.pdf)
+
 WhisperGate is a lightweight trainable gate module (~12K parameters) that sits between Whisper's frozen encoder and decoder, learning to classify each encoder frame as speech or non-speech. It **eliminates 100% of hallucinations** on silence and noise inputs while preserving clean-speech word error rate.
 
 ## Key Results
