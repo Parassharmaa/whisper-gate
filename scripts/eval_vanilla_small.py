@@ -1,7 +1,5 @@
 """Get vanilla whisper-small gap WER metrics for baseline comparison.
 
-Loads test-clean directly to avoid HF downloading all clean splits.
-
 Usage:
     uv run python scripts/eval_vanilla_small.py
 """
@@ -14,10 +12,9 @@ import sys
 from pathlib import Path
 
 import torch
-from datasets import load_dataset
-from torch.utils.data import DataLoader, Dataset
 from transformers import WhisperForConditionalGeneration, WhisperProcessor
 
+from pulse_whisper.data.dataset import get_dataloader
 from pulse_whisper.eval.gapped_eval import evaluate_all_gap_levels
 
 logging.basicConfig(
@@ -26,53 +23,6 @@ logging.basicConfig(
     handlers=[logging.StreamHandler(sys.stdout)],
 )
 logger = logging.getLogger(__name__)
-
-
-class StreamingTestCleanDataset(Dataset):
-    """Loads test-clean via streaming to avoid downloading all clean splits."""
-
-    def __init__(self, whisper_size: str = "small"):
-        self.processor = WhisperProcessor.from_pretrained(f"openai/whisper-{whisper_size}")
-        # Stream test-clean to avoid massive download of train splits
-        logger.info("Streaming test-clean dataset...")
-        ds = load_dataset(
-            "librispeech_asr", "clean", split="test", streaming=True,
-        )
-        # Materialize into memory (test-clean is only 2620 samples, ~1.5GB)
-        self.items = []
-        for item in ds:
-            self.items.append(item)
-        logger.info(f"Loaded {len(self.items)} samples")
-
-    def __len__(self):
-        return len(self.items)
-
-    def __getitem__(self, idx):
-        item = self.items[idx]
-        audio = item["audio"]["array"]
-        sr = item["audio"]["sampling_rate"]
-        text = item["text"]
-
-        inputs = self.processor(audio, sampling_rate=sr, return_tensors="pt")
-        input_features = inputs.input_features.squeeze(0)
-        labels = self.processor.tokenizer(text, return_tensors="pt").input_ids.squeeze(0)
-
-        return {
-            "input_features": input_features,
-            "labels": labels,
-            "text": text,
-        }
-
-
-def collate_fn(batch):
-    input_features = torch.stack([item["input_features"] for item in batch])
-    labels = [item["labels"] for item in batch]
-    max_label_len = max(l.shape[0] for l in labels)
-    padded_labels = torch.full((len(labels), max_label_len), -100, dtype=torch.long)
-    for i, l in enumerate(labels):
-        padded_labels[i, :l.shape[0]] = l
-    texts = [item["text"] for item in batch]
-    return {"input_features": input_features, "labels": padded_labels, "texts": texts}
 
 
 def main():
@@ -91,11 +41,8 @@ def main():
     model.eval()
 
     batch_size = 16 if device.type == "cuda" else 4
-    dataset = StreamingTestCleanDataset(whisper_size="small")
-    test_loader = DataLoader(
-        dataset, batch_size=batch_size, shuffle=False,
-        num_workers=0, collate_fn=collate_fn,
-        pin_memory=torch.cuda.is_available(),
+    test_loader = get_dataloader(
+        split="test-clean", whisper_size="small", batch_size=batch_size,
     )
 
     logger.info(f"Vanilla whisper-small gap WER (batch_size={batch_size}):")
