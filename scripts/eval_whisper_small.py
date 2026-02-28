@@ -29,7 +29,7 @@ from pulse_whisper.eval.metrics import (
 )
 from pulse_whisper.models.gated_whisper import GatedWhisper
 from pulse_whisper.models.silence_gate import SilenceGate
-from transformers import WhisperProcessor
+from transformers import WhisperForConditionalGeneration, WhisperProcessor
 
 logging.basicConfig(
     level=logging.INFO,
